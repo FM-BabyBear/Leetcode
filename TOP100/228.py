@@ -2,6 +2,8 @@ import math as m
 
 
 class Solution:
+    # Time: O(N) N: length of nums
+    # Space: O(1)
     def summaryRanges(self, nums: list[int]) -> list[str]:
         # [0,1,2,4,5,7]
         res = []
