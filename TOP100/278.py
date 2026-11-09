@@ -1,6 +1,3 @@
-# 234 自己实现一遍官方解法
-
-
 class Solution:
     def isBadVersion(self, version: int) -> bool:
 
