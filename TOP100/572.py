@@ -29,21 +29,50 @@ class Solution:
 
         return len(q1) == 0 and len(q2) == 0
 
-    def isSubtree(self, root: TreeNode | None, subRoot: TreeNode | None) -> bool:
+    # Time: O(mn) m: number of nodes in root / n: number of nodes in subRoot
+    # Space: O(m+n)
+    def isSubtree(self, root: TreeNode | None, subRoot: TreeNode) -> bool:
 
         queue = deque([root])
         result = False
         while queue:
             node = queue.popleft()
+            if node is None:
+                continue
+
             if node.val == subRoot.val:
                 result = self.isSame(node, subRoot)
-                if result == True:
+                if result:
                     return True
 
-            if result == False:
+            if not result:
                 if node.left is not None:
                     queue.append(node.left)
                 if node.right is not None:
                     queue.append(node.right)
 
         return result
+
+    def identical(self, root: TreeNode | None, subRoot: TreeNode | None) -> bool:
+        if root is None or subRoot is None:
+            return root is None and subRoot is None
+
+        return (
+            root.val == subRoot.val
+            and self.identical(root.left, subRoot.left)
+            and self.identical(root.right, subRoot.right)
+        )
+
+    # Time: O(mn) m: number of nodes in root / n: number of nodes in subRoot
+    # Space: O(m+n)
+    def isSubtree2(self, root: TreeNode | None, subRoot: TreeNode) -> bool:
+
+        if root is None:
+            return False
+
+        if self.identical(root, subRoot):
+            return True
+        else:
+            return self.isSubtree(root.left, subRoot) or self.isSubtree(
+                root.right, subRoot
+            )
